@@ -1,0 +1,4 @@
+<h3>First 10 tags in alphabetical order</h3>
+{% for object in tags10 %}
+    <a href="{% url 'blog:tags' object.name %}">{{ object.name }}</a>{% if forloop.counter < 9 and forloop.counter < tags10.count %},{% endif %}&nbsp;
+{% endfor %}

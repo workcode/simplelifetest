@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load comments %}
+{% load taggit_extras %}
+
+{% block content %}
+    <h1>Detail</h1>
+    <div><h3>Title: {{ object.title }}</h3></div>
+    <div><h3>Body: {{ object.body }}</h3></div>
+    <br>
+    {% if object.tags.all.count > 0 %}
+    <div>Tags:
+        {% for tag in object.tags.all %}
+            <a href="{% url 'blog:tags' tag.name %}">{{ tag.name }}</a>{% if forloop.counter < object.tags.all.count %},{% endif %}&nbsp;
+        {% endfor %}
+    </div>
+    <br>
+    {% endif %}
+    {% include 'blog/list_tags10.html' %}
+    <br>
+    <br>
+    {% get_comment_count for object as comment_count %}
+    <div><h3>Comments: {{ comment_count }}</h3></div>
+    {% get_comment_list for object as comment_list %}
+
+    <table id="table" class="table table-hover">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        {% for item in comment_list %}
+            <tr>
+                <td>{{ item.submit_date }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.comment }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% render_comment_form for object %}
+
+{% endblock %}

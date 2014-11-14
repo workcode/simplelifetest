@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>List articles by tag "{{ tag }}"</h1>
+
+    {% for object in object_list %}
+        {% if object_list.count > 3 %}
+            <a href="{% url 'blog:detail' object.id %}">{{ object.title }}</a>
+        {% else %}
+            {{ object.title }}
+        {% endif %}
+        <br>
+    {% endfor %}
+
+    {% include 'blog/list_tags10.html' %}
+
+{% endblock %}

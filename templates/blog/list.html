@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Main page</h1>
+
+    <table id="table" class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Created</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        {% for object in object_list %}
+            <tr onclick="location.href='{% url 'blog:detail' object.id %}'" style="cursor:pointer;">
+                <td>{{ object.id }}</td>
+                <td>{{ object.created }}</td>
+                <td><a href="{% url 'blog:detail' object.id %}">{{ object.title }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% include 'blog/list_tags10.html' %}
+
+{% endblock %}
